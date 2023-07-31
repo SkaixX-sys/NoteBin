@@ -13,6 +13,7 @@ const Input: FC<InputProps> = React.memo(function Input({ type, setState, state,
                 className=" border-gray-400 border rounded px-1 mb-2 h-8"
                 onChange={(event) => handleInputChange({ event, setState })}
                 value={state}
+                required
             />
         </>
     )

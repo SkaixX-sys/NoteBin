@@ -9,7 +9,7 @@ export type PasteDetails = Omit<Paste, "text">
 export default class PastebindService {
 
     static async getAll(page?: number, perPage?: number): Promise<AxiosResponse<Paste[]>> {
-        return await $host.get<Paste[]>('/api/paste/' + "?page=" + page, {
+        return await $host.get<Paste[]>('/api/paste/', {
             params: {
                 page: page,
                 perPage: perPage
@@ -18,7 +18,7 @@ export default class PastebindService {
     }
 
     static async getNameNameCreatorCategory(page?: number, perPage?: number): Promise<AxiosResponse<PasteDetails[]>> {
-        return await $host.get<PasteDetails[]>('/api/paste/' + "?page=" + page, {
+        return await $host.get<PasteDetails[]>('/api/paste/', {
             params: {
                 page: page,
                 perPage: perPage
@@ -27,7 +27,7 @@ export default class PastebindService {
     }
 
     static async getOne(id: string | undefined | string[]): Promise<AxiosResponse<Paste>> {
-        return await $host.get<Paste>('/api/paste/' + id)
+        return await $host.get<Paste>('/api/paste/getPaste/' + id)
     }
 
     static async create(paste: CreatePaste): Promise<AxiosResponse<Paste>> {

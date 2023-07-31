@@ -3,12 +3,16 @@ import Input from './../../ui/input/Input';
 import Textarea from "../../ui/textarea/Textarea";
 import PastebinService from "@/service/pastebinService";
 import { useMutation } from "react-query";
+import { errorNotify, successNotify } from "@/utils/notificationsTypes";
+import { useRouter } from "next/router";
 
 interface postPasteData {
     name: string,
     category: string,
     nameCreator: string,
     text: string,
+    rating: number,
+    views: number
 }
 
 export const Create: FC = () => {
@@ -16,7 +20,7 @@ export const Create: FC = () => {
     const [category, setCategory] = useState<string>("")
     const [nameCreator, setNameCreator] = useState<string>("")
     const [text, setText] = useState<string>("")
-    const [message, setMessage] = useState<string>("")
+    const router = useRouter()
 
 
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -27,23 +31,26 @@ export const Create: FC = () => {
             "category": category,
             "nameCreator": nameCreator,
             "text": text,
+            "rating": 0,
+            "views": 0,
         }
 
         setName("")
         setCategory("")
         setNameCreator("")
         setText("")
-
         mutation.mutateAsync(dataToPostPasteJson)
     }
 
     const postPaste = async (postData: postPasteData) => {
         try {
             const { data } = await PastebinService.create(postData)
+            successNotify("Паста создана")
+            router.push(`/pastebins/${data._id}`)
             return data
         } catch (error) {
+            errorNotify("Не удалось создать пасту")
             throw error
-            console.error(error);
 
         }
     }
@@ -54,7 +61,6 @@ export const Create: FC = () => {
         <div className="p-3 flex justify-center">
             <form onSubmit={onSubmit} className="flex w-1/4 justify-center items-center shadow-lg">
                 <fieldset className="border p-3 flex justify-center flex-col w-full gap-1">
-                    <div>{message}</div>
                     <legend className="text-lg font-medium">Создайте пасту</legend>
                     <Input
                         type="text"

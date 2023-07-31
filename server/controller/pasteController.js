@@ -1,27 +1,37 @@
-import Paste from "../model/pastes.js";
+import PastebinService from "../service/pastebin-service.js";
 
 class PastesController {
   async create(request, response, next) {
     try {
-      const newPasteData = request.body;
-      const pasteExemplar = new Paste(newPasteData);
-      await pasteExemplar.save();
-      response.status(201).send(pasteExemplar);
+      const { name, category, nameCreator, text, userID } = request.body;
+      const pastebinData = await PastebinService.create({
+        name,
+        category,
+        nameCreator,
+        text,
+        userID,
+      });
+      return response.json(pastebinData);
     } catch (error) {
-      console.error(error);
-      response.status(500).send("Create error");
+      next(error);
     }
   }
 
   async update(request, response, next) {
     try {
-      const pasteData = request.body;
-      const pasteId = request.params.id;
-      const paste = await Paste.findByIdAndUpdate(pasteId, pasteData);
-      response.status(201).send(paste);
+      const { name, category, nameCreator, text, userID } = request.body;
+      const { id } = request.params;
+      const pastebinData = await PastebinService.update({
+        name,
+        category,
+        nameCreator,
+        text,
+        userID,
+        id,
+      });
+      return response.json(pastebinData);
     } catch (error) {
-      console.error(error);
-      response.status(500).send("Update error");
+      next(error);
     }
   }
 
@@ -30,11 +40,10 @@ class PastesController {
       const page = parseInt(request.query.page) || 1;
       const perPage = parseInt(request.query.perPage) || 10;
       const skips = perPage * (page - 1);
-      const pastes = await Paste.find().skip(skips).limit(perPage);
-      response.status(201).send(pastes);
+      const pastebinData = await PastebinService.getAll(page, perPage, skips);
+      return response.json(pastebinData);
     } catch (error) {
-      console.error(error);
-      response.status(500).send("Pastes not found");
+      next(error);
     }
   }
 
@@ -43,36 +52,44 @@ class PastesController {
       const page = parseInt(request.query.page) || 1;
       const perPage = parseInt(request.query.perPage) || 10;
       const skips = perPage * (page - 1);
-      const pastes = await Paste.find()
-        .select("name nameCreator category")
-        .skip(skips)
-        .limit(perPage);
-      response.status(201).send(pastes);
+      const pastebinData = await PastebinService.getNameNameCreatorCategory(
+        page,
+        perPage,
+        skips
+      );
+      return response.json(pastebinData);
     } catch (error) {
-      console.error(error);
-      response.status(500).send("Pastes not found");
+      next(error);
     }
   }
 
   async getOne(request, response, next) {
     try {
-      const pasteId = request.params.id;
-      const paste = await Paste.findById(pasteId);
-      response.status(201).send(paste);
+      const { id } = request.params;
+      const pastebinData = await PastebinService.getOne(id);
+      return response.json(pastebinData);
     } catch (error) {
-      console.error(error);
-      response.status(500).send("Paste not found");
+      next(error);
     }
   }
 
   async delete(request, response, next) {
     try {
-      const pasteId = request.params.id;
-      const paste = await Paste.findByIdAndDelete(pasteId);
-      response.status(201).send(paste);
+      const { id } = request.params;
+      const { userId } = request.body;
+      const pastebinData = await PastebinService.delete(id, userId);
+      return response.json(pastebinData);
     } catch (error) {
-      console.error(error);
-      response.status(500).send("Delete error");
+      next(error);
+    }
+  }
+  async getAllByUserId(request, response, next) {
+    try {
+      const { userId } = request.body;
+      const pastebinData = await PastebinService.getAllByUserId(userId);
+      return response.json(pastebinData);
+    } catch (error) {
+      next(error);
     }
   }
 }

@@ -4,4 +4,6 @@ export default interface Paste {
     category: string;
     nameCreator: string;
     text: string;
+    rating: number;
+    views: number;
 }

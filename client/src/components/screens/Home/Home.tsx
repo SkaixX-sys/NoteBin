@@ -1,6 +1,5 @@
 import { FC } from "react"
 import Link from 'next/link';
-import { Toaster } from "react-hot-toast";
 
 export const Home: FC = () => {
     return (

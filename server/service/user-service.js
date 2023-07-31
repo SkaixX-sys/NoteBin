@@ -3,7 +3,6 @@ import { hash, compareSync } from "bcrypt";
 import tokenService from "./token-service.js";
 import UserDto from "../dtos/user-dto.js";
 import ApiError from "../error/api-error.js";
-import jwt from "jsonwebtoken";
 
 class UserService {
   async registration(email, password, username) {

@@ -1,12 +1,12 @@
 import { Schema, model } from "mongoose";
 
 const commentsSchema = new Schema({
-  text: { type: String },
-  category: { type: String },
-  nameCreator: { type: String },
-  text: { type: String },
+  comment: { type: String },
+  userID: { type: Schema.Types.ObjectId, ref: "User", require: true },
+  pasteID: { type: Schema.Types.ObjectId, ref: "Paste", require: true },
+  dateAt: { type: String },
+  author: { type: String },
+//   childComment: { type: Schema.Types.ObjectId, ref: "Comment" },
 });
 
-const Comment = model("Comment", commentsSchema);
-
-export default Comment;
+export default model("Comment", commentsSchema);

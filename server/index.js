@@ -25,6 +25,7 @@ app.use(
 );
 app.use(json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api", router);
 app.use(errorMiddleware);
 
