@@ -1,4 +1,4 @@
-import handleInputChange from "@/service/handleInputChange";
+import handleInputChange from "@/utils/handleInputChange";
 import { FC, useState, ChangeEvent, PropsWithChildren, KeyboardEvent } from "react";
 import CommentServices from "@/service/commentService";
 import { useUserStore } from "@/store/user-store";

@@ -8,6 +8,6 @@ export const fetchComments = async (id: string | undefined | string[], page: num
         return comments
     } catch (error: any) {
         console.log(error);
+        throw new Error("Не удалось получить комментарии");
     }
-    throw new Error("Не удалось получить комментарии");
 }

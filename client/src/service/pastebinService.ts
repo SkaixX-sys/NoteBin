@@ -18,7 +18,7 @@ export default class PastebindService {
     }
 
     static async getNameNameCreatorCategory(page?: number, perPage?: number): Promise<AxiosResponse<PasteDetails[]>> {
-        return await $host.get<PasteDetails[]>('/api/paste/', {
+        return await $host.get<PasteDetails[]>('/api/paste/pasteDetails', {
             params: {
                 page: page,
                 perPage: perPage
@@ -40,6 +40,9 @@ export default class PastebindService {
 
     static async remove(id: string): Promise<AxiosResponse<number>> {
         return await $host.delete<number>('/api/paste/' + id)
+    }
+    static async getTenByMostPopularity(): Promise<AxiosResponse<Paste[]>> {
+        return await $host.get<Paste[]>('/api/paste/getTenByMostPopularity/')
     }
 }
 

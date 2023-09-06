@@ -3,13 +3,15 @@ import PastebinService from "../service/pastebin-service.js";
 class PastesController {
   async create(request, response, next) {
     try {
-      const { name, category, nameCreator, text, userID } = request.body;
+      const { name, category, nameCreator, text, userID, userIP } =
+        request.body;
       const pastebinData = await PastebinService.create({
         name,
         category,
         nameCreator,
         text,
         userID,
+        userIP,
       });
       return response.json(pastebinData);
     } catch (error) {
@@ -87,6 +89,15 @@ class PastesController {
     try {
       const { userId } = request.body;
       const pastebinData = await PastebinService.getAllByUserId(userId);
+      return response.json(pastebinData);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getTenByMostPopularity(request, response, next) {
+    try {
+      const pastebinData = await PastebinService.getTenByMostPopularity();
       return response.json(pastebinData);
     } catch (error) {
       next(error);

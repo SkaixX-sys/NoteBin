@@ -5,13 +5,8 @@ import { AxiosResponse } from "axios";
 import Link from "next/link";
 
 const fetchPasteDetails = async (page: number): Promise<AxiosResponse<PasteDetails[]>> => {
-    try {
         const data = await PastebindService.getNameNameCreatorCategory(page)
         return data
-
-    } catch (error: any) {
-        return error
-    }
 }
 
 const Pastebins: FC = () => {

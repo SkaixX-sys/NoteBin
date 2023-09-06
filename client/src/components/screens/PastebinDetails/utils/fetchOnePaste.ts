@@ -8,6 +8,6 @@ export const fetchOnePaste = async (id: string | undefined | string[]): Promise<
         return data
     } catch (error: any) {
         console.log(error);
+        throw new Error("Не удалось получить комментарии");
     }
-    throw new Error("Не удалось получить комментарии");
 }

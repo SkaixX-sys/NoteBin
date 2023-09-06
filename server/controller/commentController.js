@@ -56,6 +56,9 @@ class CommentController {
         perPage,
         skips
       );
+      if (!commentData) {
+        throw "Комменатриев нет";
+      }
       return response.json(commentData);
     } catch (error) {
       next(error);

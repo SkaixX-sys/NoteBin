@@ -8,7 +8,12 @@ export interface CommentListProps {
 }
 
 export interface UpdateComment {
-    comment: JSX.Element[]; userID: string; pasteID: string; dateAt: string; author: string; _id: string;
+    comment: string
+    userID: string;
+    pasteID: string;
+    dateAt: string;
+    author: string;
+    _id: string;
 }
 export interface UpdateCommentList {
     comments: UpdateComment[]

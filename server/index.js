@@ -38,3 +38,5 @@ connect(url)
 app.listen(PORT, (error) => {
   error ? console.log(error) : console.log(`listening port ${PORT}`);
 });
+
+console.log("server");

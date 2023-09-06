@@ -11,6 +11,6 @@ router.get("/getPaste/:id", pasteController.getOne);
 router.delete("/:id", pasteController.delete);
 router.put("/:id", pasteController.update);
 router.get("/userPastes/", pasteController.getAllByUserId);
+router.get("/getTenByMostPopularity/", pasteController.getTenByMostPopularity);
 
 export default router;
-
